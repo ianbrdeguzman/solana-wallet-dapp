@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { NextPage } from "next";
-import { Button, Tooltip, Drawer, Typography } from "antd";
-import { useGlobalState } from "../context";
-import { useRouter } from "next/router";
-import TransactionLayout from "../components/TransactionLayout";
-import { refreshBalance, handleAirdrop } from "../utils";
-import { ArrowRightOutlined, LoadingOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from 'react';
+import { NextPage } from 'next';
+import { Button, Tooltip, Drawer, Typography } from 'antd';
+import { useGlobalState } from '../context';
+import { useRouter } from 'next/router';
+import TransactionLayout from '../components/TransactionLayout';
+import { refreshBalance, handleAirdrop } from '../utils';
+import { ArrowRightOutlined, LoadingOutlined } from '@ant-design/icons';
 import {
   Dashboard,
   Airdrop,
-  Question,
-} from "../styles/StyledComponents.styles";
+  Question
+} from '../styles/StyledComponents.styles';
 
 const { Paragraph } = Typography;
 
@@ -23,7 +23,7 @@ const Wallet: NextPage = () => {
 
   useEffect(() => {
     if (!account) {
-      router.push("/");
+      router.push('/');
       return;
     }
     refreshBalance(network, account)
@@ -38,7 +38,8 @@ const Wallet: NextPage = () => {
   const airdrop = async () => {
     setAirdropLoading(true);
     const updatedBalance = await handleAirdrop(network, account);
-    if (typeof updatedBalance === "number") {
+    if (typeof updatedBalance === 'number') {
+      console.log(updatedBalance);
       setBalance(updatedBalance);
     }
     setAirdropLoading(false);
@@ -68,9 +69,9 @@ const Wallet: NextPage = () => {
           </Paragraph>
 
           <p>
-            Connected to{" "}
+            Connected to{' '}
             {network &&
-              (network === "mainnet-beta"
+              (network === 'mainnet-beta'
                 ? network.charAt(0).toUpperCase() + network.slice(1, 7)
                 : network.charAt(0).toUpperCase() + network.slice(1))}
           </p>
@@ -84,12 +85,12 @@ const Wallet: NextPage = () => {
             </h2>
           )}
 
-          {network === "devnet" && account && (
+          {network === 'devnet' && account && (
             <>
               <Airdrop onClick={airdrop}>Airdrop</Airdrop>
               <Tooltip
                 title="Click to receive 1 devnet SOL into your account"
-                placement={"right"}
+                placement={'right'}
               >
                 <Question>?</Question>
               </Tooltip>
@@ -105,7 +106,7 @@ const Wallet: NextPage = () => {
             placement="bottom"
             onClose={handleClose}
             visible={visible}
-            height={"55vh"}
+            height={'55vh'}
           >
             <TransactionLayout />
           </Drawer>
